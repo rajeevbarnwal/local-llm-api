@@ -1,31 +1,23 @@
 name: CI
-
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  push: { branches: [ main ] }
+  pull_request: { branches: [ main ] }
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+        with: { python-version: '3.10' }
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install requests
 
       - name: Launch server and run tests
         run: |
-          pip install uvicorn
-          nohup uvicorn main:app --host 0.0.0.0 --port 8080 &
-          sleep 5
+          nohup uvicorn main:app --host 0.0.0.0 --port 8080 & sleep 5
           python test_api.py

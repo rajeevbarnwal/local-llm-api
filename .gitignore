@@ -5,5 +5,9 @@
 __pycache__/
 *.pyc
 
-# Virtual environments
+# Virtual environment
 venv/
+
+# Logs
+*.log
+
